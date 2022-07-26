@@ -14,7 +14,6 @@ updateInput();
 function onSaveData(evt) {
   evt.preventDefault();
   formData[evt.target.name] = evt.target.value;
-  console.dir(formData);
   const valueStorage = JSON.stringify(formData);
   localStorage.setItem(LOCALSTORAGE_KEY, valueStorage);
 }
@@ -27,11 +26,13 @@ function onSubmitForm(evt) {
 }
 
 function updateInput() {
-  const chekInput = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-  console.dir(chekInput);
+  let chekInput = localStorage.getItem(LOCALSTORAGE_KEY);
 
   if (chekInput) {
-    inputEl.value = chekInput.email || '';
-    textareaEl.value = chekInput.message || '';
+    chekInput = JSON.parse(chekInput);
+    Object.entries(chekInput).forEach(([name, value]) => {
+      formData[name] = value;
+      formEl.elements[name].value = value;
+    });
   }
 }
