@@ -17,6 +17,13 @@ function onSaveData(evt) {
 }
 
 function onSubmitForm(evt) {
+  if (
+    evt.target.elements.email.value === '' ||
+    evt.target.elements.message.value === ''
+  ) {
+    alert('The field must be filled');
+    return;
+  }
   console.log(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)));
   evt.preventDefault();
   localStorage.removeItem(LOCALSTORAGE_KEY);
